@@ -77,7 +77,7 @@ if MQTT_USERNAME is not None:
 client.connect(MQTT_HOST,MQTT_PORT)
 
 def on_connect(client, userdata, flags, reason_code, properties):  # The callback for when the client connects to the broker
-    if reason_code != 0:
+    if reason_code != "Success":
         print("Unable to connect to MQTT broker, result code {0}".format(str(reason_code)))
         sys.exit(1)
 

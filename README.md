@@ -67,4 +67,4 @@ native:
 
 if it's running properly you should get something back when looking at
 
-http://<ip>/api/1/vitals
+http://IP_ADDRESS/api/1/vitals
