@@ -21,7 +21,7 @@ via docker:
 
     docker run --name twc3teslamate -p 80:80 -e MQTT_HOST=mosquitto speedst3r/twc3teslamate
 
-where `MQTT_BROKER` is the hostname or IP of your MQTT broker where teslamate logs data.
+where `MQTT_HOST` is the hostname or IP of your MQTT broker where teslamate logs data.
 
 or as part of your evcc so you could access it via port 80 without exposing this port at all just with the name of the container 
 
