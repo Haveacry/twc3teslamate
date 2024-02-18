@@ -27,9 +27,10 @@ jobs:
         push: true
         tags: ghcr.io/speedst3r/twc3teslamate:latest,ghcr.io/speedst3r/twc3teslamate:alpine
 
-    - name: Build and push Docker image (alpine)
+    - name: Build and push Docker image (Debian)
       uses: docker/build-push-action@v5
       with:
         context: .
         file: Dockerfile.debian
+        push: true
         tags: ghcr.io/speedst3r/twc3teslamate:debian
