@@ -190,7 +190,7 @@ async def get_vitals():
     global state
 
     # If we are at home, set charging/plugged status, else our "wall connector" is not charging the car
-    if data["geofence"] == TESLAMATE_GEO_HOME:
+    if data["geofence"] and data["geofence"] == TESLAMATE_GEO_HOME:
         if state == "charging":
             charging = True
 
