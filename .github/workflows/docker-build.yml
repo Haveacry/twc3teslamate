@@ -11,7 +11,7 @@ jobs:
 
     steps:
     - name: Check Out Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Log in to the Container registry
       uses: docker/login-action@v3
@@ -25,4 +25,11 @@ jobs:
       with:
         context: .
         push: true
-        tags: ghcr.io/speedst3r/twc3teslamate:latest
+        tags: ghcr.io/speedst3r/twc3teslamate:latest,ghcr.io/speedst3r/twc3teslamate:alpine
+
+    - name: Build and push Docker image (alpine)
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        file: Dockerfile.debian
+        tags: ghcr.io/speedst3r/twc3teslamate:debian
