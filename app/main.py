@@ -207,6 +207,7 @@ async def get_vitals():
     else:
         charging = False
         connected = False
+        session_time = 0
     
     current = data["current"]
     voltage = data["voltage"]

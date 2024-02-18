@@ -20,13 +20,6 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Build and push Docker image
-      uses: docker/build-push-action@v5
-      with:
-        context: .
-        push: true
-        tags: ghcr.io/speedst3r/twc3teslamate:latest,ghcr.io/speedst3r/twc3teslamate:alpine
-
     - name: Build and push Docker image (Debian)
       uses: docker/build-push-action@v5
       with:
@@ -34,3 +27,10 @@ jobs:
         file: Dockerfile.debian
         push: true
         tags: ghcr.io/speedst3r/twc3teslamate:debian
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        push: true
+        tags: ghcr.io/speedst3r/twc3teslamate:latest,ghcr.io/speedst3r/twc3teslamate:alpine
