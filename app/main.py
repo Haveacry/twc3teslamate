@@ -112,7 +112,7 @@ def on_message(client, userdata, message):
         elif topic_postfix == "charger_power":
             if(payload!='' and int(payload)!=0):
                 data["is_charging"]=1
-                if int(payload)>22:
+                if int(payload)<-22:
                     data["is_dcfc"]=1
         #elif topic_postfix == "heading":
         #    data["heading"] = payload
@@ -189,6 +189,22 @@ async def get_vitals():
     global data
     global state
 
+    current = data["current"]
+    voltage = data["voltage"]
+
+    # Teslamate reports single voltage/current values - assume same on all phases
+    if data["phases"] == 3:
+        current_b = current
+        current_c = current
+        voltage_b = voltage
+        voltage_c = voltage
+    else:
+        current_b = 0
+        current_c = 0
+        voltage_b = 0
+        voltage_c = 0
+
+
     # If we are at home, set charging/plugged status, else our "wall connector" is not charging the car
     if data.get("geofence") is not None:
         if data["geofence"] == TESLAMATE_GEO_HOME:
@@ -209,26 +225,24 @@ async def get_vitals():
             charging = False
             connected = False
             session_time = 0
+            current = 0
+            current_b = 0
+            current_c = 0
+            voltage = 0
+            voltage_b = 0
+            voltage_c = 0
+
     else:
         charging = False
         connected = False
         session_time = 0
-    
-    current = data["current"]
-    voltage = data["voltage"]
-
-    # Teslamate reports single voltage/current values - assume same on all phases
-    if data["phases"] == 3:
-        current_b = current
-        current_c = current
-        voltage_b = voltage
-        voltage_c = voltage
-    else:
+        current = 0
         current_b = 0
         current_c = 0
+        voltage = 0
         voltage_b = 0
         voltage_c = 0
-
+    
     vitals = Vitals(
         contactor_closed=charging,
         vehicle_connected=connected,
