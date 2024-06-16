@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: default-linux
 
     steps:
     - name: Check Out Repo
@@ -26,11 +26,11 @@ jobs:
         context: .
         file: Dockerfile.debian
         push: true
-        tags: ghcr.io/speedst3r/twc3teslamate:debian
+        tags: ghcr.io/Haveacry/twc3teslamate:debian
 
     - name: Build and push Docker image
       uses: docker/build-push-action@v5
       with:
         context: .
         push: true
-        tags: ghcr.io/speedst3r/twc3teslamate:latest,ghcr.io/speedst3r/twc3teslamate:alpine
+        tags: ghcr.io/Haveacry/twc3teslamate:latest,ghcr.io/Haveacry/twc3teslamate:alpine
