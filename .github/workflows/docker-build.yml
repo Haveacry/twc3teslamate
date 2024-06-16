@@ -26,11 +26,11 @@ jobs:
         context: .
         file: Dockerfile.debian
         push: true
-        tags: ghcr.io/Haveacry/twc3teslamate:debian
+        tags: ghcr.io/haveacry/twc3teslamate:debian
 
     - name: Build and push Docker image
       uses: docker/build-push-action@v5
       with:
         context: .
         push: true
-        tags: ghcr.io/Haveacry/twc3teslamate:latest,ghcr.io/Haveacry/twc3teslamate:alpine
+        tags: ghcr.io/haveacry/twc3teslamate:latest,ghcr.io/haveacry/twc3teslamate:alpine
