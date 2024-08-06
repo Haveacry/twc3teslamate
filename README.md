@@ -23,16 +23,88 @@ via docker:
 
 where `MQTT_HOST` is the hostname or IP of your MQTT broker where teslamate logs data.
 
-or as part of your evcc so you could access it via port 80 without exposing this port at all just with the name of the container 
+or as part of your teslamate/evcc compose so you could access it via port 80 without exposing this port at all just with the name of the container 
 
 ```
+    version: "3"
     services:
-    twc3teslamate:
-      container_name: twc3teslamate
-      image: haveacry/twc3teslamate
-      environment:
-        - MQTT_HOST=mosquitto
-      restart: unless-stopped
+      teslamate:
+        image: teslamate/teslamate:latest
+        restart: always
+        environment:
+          - ENCRYPTION_KEY=secretkey #replace with a secure key to encrypt your Tesla API tokens
+          - DATABASE_USER=teslamate
+          - DATABASE_PASS=password #insert your secure database password!
+          - DATABASE_NAME=teslamate
+          - DATABASE_HOST=database
+          - MQTT_HOST=mosquitto
+        ports:
+          - 4000:4000
+        volumes:
+          - ./import:/opt/app/import
+        cap_drop:
+          - all
+
+      database:
+        image: postgres:16
+        restart: always
+        environment:
+          - POSTGRES_USER=teslamate
+          - POSTGRES_PASSWORD=password #insert your secure database password!
+          - POSTGRES_DB=teslamate
+        volumes:
+        - teslamate-db:/var/lib/postgresql/data
+
+      grafana:
+        image: teslamate/grafana:latest
+        restart: always
+        environment:
+          - DATABASE_USER=teslamate
+          - DATABASE_PASS=password #insert your secure database password!
+          - DATABASE_NAME=teslamate
+          - DATABASE_HOST=database
+        ports:
+          - 3000:3000
+        volumes:
+          - teslamate-grafana-data:/var/lib/grafana
+
+      mosquitto:
+        image: eclipse-mosquitto:2
+        restart: always
+        command: mosquitto -c /mosquitto-no-auth.conf
+        # ports:
+        #   - 1883:1883
+        volumes:
+          - mosquitto-conf:/mosquitto/config
+          - mosquitto-data:/mosquitto/data
+
+      evcc:
+        command:
+          - evcc
+        container_name: evcc
+        image: evcc/evcc:latest
+        ports:
+          - 7070:7070/tcp
+          - 8887:8887/tcp
+          - 7090:7090/udp
+          - 9522:9522/udp
+        volumes:
+          - /etc/evcc.yaml:/etc/evcc.yaml
+          - /home/[user]/.evcc:/root/.evcc
+        restart: unless-stopped
+
+      twc3teslamate:
+        container_name: twc3teslamate
+        image: haveacry/twc3teslamate
+        environment:
+          - MQTT_HOST=mosquitto
+        restart: unless-stopped
+
+    volumes:
+      teslamate-db:
+      teslamate-grafana-data:
+      mosquitto-conf:
+      mosquitto-data:
 ```      
 
 ## Environment variables
