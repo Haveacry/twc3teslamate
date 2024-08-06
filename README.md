@@ -118,11 +118,18 @@ or as part of your teslamate/evcc compose so you could access it via port 80 wit
 | TESLAMATE_CAR_ID | Teslamate car ID (where multiple cars in account) | 1 |
 | TESLAMATE_GEO_HOME | Teslamate Geofence name where car is charged | "Home" |
 
-for tweaking:
 
-first clone it to the machine you want to run it
+## EVCC configuration
 
-    git clone https://github.com/haveacry/twc3teslamate.git
+Setup a TWC3 charger and use the name of the twc3teslamate container (if in the same stack) or the IP address the container is exposed on, that is accessible from EVCC
+
+```
+  chargers:
+  - name: TWC
+    type: template
+    template: twc3
+    host: twc3teslamate # IP address or hostname
+``` 
 
 
 ## run it
