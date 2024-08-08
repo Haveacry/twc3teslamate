@@ -11,9 +11,6 @@ jobs:
     - name: Check Out Repo
       uses: actions/checkout@v4
 
-    - name: Set up QEMU
-      uses: docker/setup-qemu-action@v3
-
     - name: Setup buildx
       uses: docker/setup-buildx-action@v3
       with:
