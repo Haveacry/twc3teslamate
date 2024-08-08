@@ -8,7 +8,7 @@ import paho.mqtt.client as mqtt
 
 app = FastAPI()
 
-#tasmota_ip = os.getenv('TASMOTA_IP', '172.16.90.72')
+# environment variables
 MQTT_HOST = os.getenv('MQTT_HOST', None)
 MQTT_PORT = os.getenv('MQTT_PORT', 1883)
 MQTT_USERNAME = os.getenv('MQTT_USERNAME', None)
@@ -21,6 +21,7 @@ if MQTT_HOST is None:
     print("No MQTT broker specified. Please set the MQTT_HOST environment variable")
     sys.exit(1)
 
+# set the namespace of the topic to subscribe to
 if TESLAMATE_NAMESPACE is None:
     mqttnamespace = "teslamate"
 else:
@@ -199,7 +200,8 @@ async def get_vitals():
     voltage = data["voltage"]
 
     # Teslamate reports single voltage/current values - assume same on all phases
-    if data["phases"] == 3:
+    # some Teslas (Model 3) report phases == 2 when charging on three-phase
+    if data["phases"] > 1:
         current_b = current
         current_c = current
         voltage_b = voltage
