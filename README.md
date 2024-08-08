@@ -117,6 +117,7 @@ or as part of your teslamate/evcc compose so you could access it via port 80 wit
 | MQTT_PASSWORD | Password for MQTT broker (optional) | None |
 | TESLAMATE_CAR_ID | Teslamate car ID (where multiple cars in account) | 1 |
 | TESLAMATE_GEO_HOME | Teslamate Geofence name where car is charged | "Home" |
+| TESLAMATE_NAMESPACE | Teslamate MQTT namespace | None |
 
 
 ## EVCC configuration
