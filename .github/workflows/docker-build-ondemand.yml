@@ -1,0 +1,44 @@
+name: Build and Push Docker Image
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: default-linux
+
+    steps:
+    - name: Check Out Repo
+      uses: actions/checkout@v4
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
+
+    - name: Setup buildx
+      uses: docker/setup-buildx-action@v3
+      with:
+        driver-opts: |
+          image=moby/buildkit:buildx-stable-1-rootless
+        platforms: linux/amd64,linux/arm64
+
+    - name: Log in to the Container registry
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build and push Docker image (Debian)
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        file: Dockerfile.debian
+        push: true
+        tags: ghcr.io/haveacry/twc3teslamate:debian
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        push: true
+        tags: ghcr.io/haveacry/twc3teslamate:latest,ghcr.io/haveacry/twc3teslamate:alpine
