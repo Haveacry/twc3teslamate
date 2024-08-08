@@ -27,6 +27,7 @@ jobs:
         context: .
         file: Dockerfile.debian
         platforms: linux/amd64,linux/arm64
+        provenance: false
         push: true
         tags: ghcr.io/haveacry/twc3teslamate:debian
 
@@ -35,5 +36,6 @@ jobs:
       with:
         context: .
         platforms: linux/amd64,linux/arm64
+        provenance: false
         push: true
         tags: ghcr.io/haveacry/twc3teslamate:latest,ghcr.io/haveacry/twc3teslamate:alpine

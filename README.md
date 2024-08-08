@@ -19,7 +19,7 @@ Adapted from [laenglea/twc3simulator](https://github.com/laenglea/twc3simulator)
 
 via docker:
 
-    docker run --name twc3teslamate -p 80:80 -e MQTT_HOST=mosquitto haveacry/twc3teslamate
+    docker run --name twc3teslamate -p 80:80 -e MQTT_HOST=mosquitto ghcr.io/haveacry/twc3teslamate
 
 where `MQTT_HOST` is the hostname or IP of your MQTT broker where teslamate logs data.
 
@@ -95,7 +95,7 @@ or as part of your teslamate/evcc compose so you could access it via port 80 wit
 
       twc3teslamate:
         container_name: twc3teslamate
-        image: haveacry/twc3teslamate
+        image: ghcr.io/haveacry/twc3teslamate
         environment:
           - MQTT_HOST=mosquitto
         restart: unless-stopped
