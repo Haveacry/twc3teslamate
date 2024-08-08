@@ -15,10 +15,16 @@ MQTT_USERNAME = os.getenv('MQTT_USERNAME', None)
 MQTT_PASSWORD = os.getenv('MQTT_PASSWORD', None)
 TESLAMATE_CAR_ID = os.getenv('TESLAMATE_CAR_ID', 1)
 TESLAMATE_GEO_HOME = os.getenv('TESLAMATE_GEO_HOME', 'Home')
+TESLAMATE_NAMESPACE = os.getenv('TESLAMATE_NAMESPACE', None)
 
 if MQTT_HOST is None:
     print("No MQTT broker specified. Please set the MQTT_HOST environment variable")
     sys.exit(1)
+
+if TESLAMATE_NAMESPACE is None:
+    mqttnamespace = "teslamate"
+else:
+    mqttnamespace = f"teslamate/{TESLAMATE_NAMESPACE}"
 
 # Define the data structure
 class Vitals(BaseModel):
@@ -82,7 +88,7 @@ def on_connect(client, userdata, flags, reason_code, properties):  # The callbac
         sys.exit(1)
 
     print("Connected with result code {0}".format(str(reason_code)))  # Print result of connection attempt
-    client.subscribe(f"teslamate/cars/{TESLAMATE_CAR_ID}/#")
+    client.subscribe(f"{mqttnamespace}/cars/{TESLAMATE_CAR_ID}/#")
 
 # Process MQTT messages
 def on_message(client, userdata, message):
