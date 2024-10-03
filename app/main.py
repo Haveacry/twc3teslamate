@@ -175,7 +175,7 @@ def on_message(client, userdata, message):
         elif topic_postfix == "geofence":
             data["geofence"] = payload
         elif topic_postfix == "charger_phases":
-            data["phases"] = payload
+            data["phases"] = int(payload)
         else:
             pass
             #print("Unneeded topic:", message.topic, payload)
