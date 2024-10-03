@@ -98,6 +98,8 @@ or as part of your teslamate/evcc compose so you could access it via port 80 wit
         image: ghcr.io/haveacry/twc3teslamate
         environment:
           - MQTT_HOST=mosquitto
+	ports:
+          - 8080:80
         restart: unless-stopped
 
     volumes:
@@ -147,4 +149,4 @@ native:
 
 if it's running properly you should get something back when looking at
 
-http://IP_ADDRESS/api/1/vitals
+http://IP_ADDRESS(:port)/api/1/vitals
