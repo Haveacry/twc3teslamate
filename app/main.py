@@ -174,7 +174,7 @@ def on_message(client, userdata, message):
             data["session_start"] = payload[:-8]
         elif topic_postfix == "geofence":
             data["geofence"] = payload
-        elif topic_postfix == "phases":
+        elif topic_postfix == "charger_phases":
             data["phases"] = payload
         else:
             pass
