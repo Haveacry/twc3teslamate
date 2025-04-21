@@ -17,11 +17,13 @@ Adapted from [laenglea/twc3simulator](https://github.com/laenglea/twc3simulator)
 
 ## Installation
 
-via docker:
+via docker (amd64 and arm64):
 
     docker run --name twc3teslamate -p 80:80 -e MQTT_HOST=mosquitto ghcr.io/haveacry/twc3teslamate
 
 where `MQTT_HOST` is the hostname or IP of your MQTT broker where teslamate logs data.
+
+> **Note: 32-bit Raspberry Pi OS is not supported, you MUST use the 64-bit version to run this container**
 
 or as part of your teslamate/evcc compose so you could access it via port 80 without exposing this port at all just with the name of the container 
 
