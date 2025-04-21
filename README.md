@@ -12,7 +12,7 @@ Adapted from [laenglea/twc3simulator](https://github.com/laenglea/twc3simulator)
 
 - Teslamate setup with MQTT integration (default MQTT publishing path)
 - a MQTT broker
-- Docker 
+- Docker (amd64 and arm64 only)
 
 
 ## Installation
